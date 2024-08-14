@@ -1,14 +1,14 @@
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import CreateTripContext from './../context/CreateTripContext'
+import MediDataContext from '../context/MediDataContext'
 import { useState} from "react";
 
 export default function RootLayout() {
 
-  const [tripData,setTripData]=useState()
+  const [userData, setUserData]=useState()
   
   return (
-    <CreateTripContext.Provider value={{tripData,setTripData}}>
+    <MediDataContext.Provider value={{userData, setUserData}}>
     <Stack
       screenOptions={{
         headerShown: false,
@@ -16,6 +16,6 @@ export default function RootLayout() {
     >
       <Stack.Screen name="(tabs)" />
     </Stack>
-    </CreateTripContext.Provider>
+    </MediDataContext.Provider>
   );
 }
