@@ -15,7 +15,7 @@ export default function MyHealth() {
   useEffect(() => {
     const loadUserData = async () => {
       if (user) {
-        const id = user.uid; // Use the user's UID as the document ID
+        const id = user.uid; 
         const docRef = doc(db, "UserData", id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
