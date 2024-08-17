@@ -1,39 +1,52 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { Entypo } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 export default function _layout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#ffffff',
+          borderTopWidth: 0,
+          elevation: 5,
+          height: 60,
+          paddingVertical: 5,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+        },
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: '#8e8e93',
       }}
     >
       <Tabs.Screen
-        name="myhealth" // The path to the screen
+        name="myhealth"
         options={{
-          tabBarLabel: 'My Health', // Display name
+          tabBarLabel: 'My Health',
           tabBarIcon: ({ color }) => (
-            <Entypo name="location" size={24} color={color} />
+            <MaterialCommunityIcons name="heart-pulse" size={24} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="doctor"
         options={{
-          tabBarLabel: 'Doctor', // Display name
+          tabBarLabel: 'Doctor',
           tabBarIcon: ({ color }) => (
-            <Entypo name="compass" size={24} color={color} />
+            <FontAwesome5 name="user-md" size={22} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: 'Profile', // Display name
+          tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <Entypo name="user" size={24} color={color} />
+            <Ionicons name="ios-person" size={24} color={color} />
           ),
         }}
       />
