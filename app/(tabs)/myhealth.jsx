@@ -20,7 +20,7 @@ export default function MyHealth() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setUserData(docSnap.data());
-          console.log("User data loaded:", docSnap.data());
+          //console.log("User data loaded:", docSnap.data());
         } else {
           console.log("No such document!");
         }

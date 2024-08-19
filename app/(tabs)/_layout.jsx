@@ -46,7 +46,7 @@ export default function _layout() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-person" size={24} color={color} />
+            <Ionicons name="person" size={24} color={color} />
           ),
         }}
       />
