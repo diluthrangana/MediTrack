@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Animated } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Animated } from 'react-native';
 import tw from 'twrnc';
 import { useNavigation, useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -61,49 +61,53 @@ export default function Signup() {
   }, []);
 
   return (
-    <View style={tw`flex-1 bg-white`}>
-      <Image
-        source={require('./../../../assets/images/background1.png')}
-        style={{ width: '100%', height: '50%' }}
-      />
-      <View style={tw`flex-1 justify-center items-center p-4`}>
-        <Text style={tw`text-2xl font-bold mb-4`}>Sign Up</Text>
-        <Animated.View style={[tw`w-full mb-4`, { opacity: usernameAnim, transform: [{ scale: usernameAnim }] }]}>
-          <TextInput
-            style={tw`w-full p-3 border border-gray-300 rounded-md`}
-            placeholder="Username"
-            value={username}
-            onChangeText={setUserName}
-          />
-        </Animated.View>
-        <Animated.View style={[tw`w-full mb-4`, { opacity: emailAnim, transform: [{ scale: emailAnim }] }]}>
-          <TextInput
-            style={tw`w-full p-3 border border-gray-300 rounded-md`}
-            placeholder="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            value={email}
-            onChangeText={setEmail}
-          />
-        </Animated.View>
-        <Animated.View style={[tw`w-full mb-4`, { opacity: passwordAnim, transform: [{ scale: passwordAnim }] }]}>
-          <TextInput
-            style={tw`w-full p-3 border border-gray-300 rounded-md`}
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-          />
-        </Animated.View>
-        <Animated.View style={[tw`w-full`, { opacity: buttonAnim, transform: [{ scale: buttonAnim }] }]}>
-          <TouchableOpacity
-            style={tw`w-full p-3 bg-blue-500 rounded-md`}
-            onPress={onCreateAccount}
-          >
-            <Text style={tw`text-center text-white text-lg`}>Sign Up</Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </View>
+    <View style={tw`flex-1 justify-center bg-white p-4`}>
+      <Text style={tw`text-2xl font-bold mb-6 text-center`}>Create Account</Text>
+
+      <Animated.View style={[tw`w-full mb-4`, { opacity: usernameAnim, transform: [{ scale: usernameAnim }] }]}>
+        <TextInput
+          style={tw`w-full p-3 border border-gray-300 rounded-md`}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUserName}
+        />
+      </Animated.View>
+      <Animated.View style={[tw`w-full mb-4`, { opacity: emailAnim, transform: [{ scale: emailAnim }] }]}>
+        <TextInput
+          style={tw`w-full p-3 border border-gray-300 rounded-md`}
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </Animated.View>
+      <Animated.View style={[tw`w-full mb-6`, { opacity: passwordAnim, transform: [{ scale: passwordAnim }] }]}>
+        <TextInput
+          style={tw`w-full p-3 border border-gray-300 rounded-md`}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+      </Animated.View>
+
+      <Animated.View style={[tw`w-full mb-4`, { opacity: buttonAnim, transform: [{ scale: buttonAnim }] }]}>
+        <TouchableOpacity
+          style={tw`w-full p-3 bg-blue-500 rounded-md`}
+          onPress={onCreateAccount}
+        >
+          <Text style={tw`text-center text-white text-lg`}>Sign Up</Text>
+        </TouchableOpacity>
+      </Animated.View>
+
+      <TouchableOpacity onPress={() => router.push('auth/terms-conditions')}>
+        <Text style={tw`text-blue-500 text-center mb-4`}>Read Terms and Conditions</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => router.push('auth/sign-in')}>
+        <Text style={tw`text-blue-500 text-center`}>Already have an account? Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 }

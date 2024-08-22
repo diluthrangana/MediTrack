@@ -1,32 +1,55 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import React, { useContext } from 'react';
 import { useRouter } from "expo-router";
 import MediDataContext from '../../context/MediDataContext';
 
 export default function FitnessTracking() {
-
   const router = useRouter();
   const { userData } = useContext(MediDataContext);
 
   return (
-    <TouchableOpacity
+    <View
       style={styles.button}
       onPress={() => router.push('editmyhealth/EditMedication')}
     >   
-      <View style={styles.card}>
-        <Text style={styles.label}>Step Count:</Text>
-        <Text style={styles.value}>{userData?.stepCount || 'N/A'}</Text>
+      <View style={styles.container}>
+        {/* Vertical Card */}
+        <View style={styles.verticalcard}>
+        </View>
 
-        <Text style={styles.label}>Calories Burned:</Text>
-        <Text style={styles.value}>{userData?.caloriesBurned || 'N/A'}</Text>
+        {/* First Horizontal Card */}
+        <View style={styles.horizontalcard1}>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false} 
+            style={styles.carousel}
+          >
+            {/* Example Images */}
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+          </ScrollView>
+        </View>
 
-        <Text style={styles.label}>Exercise Log:</Text>
-        <Text style={styles.value}>{userData?.exerciseLog || 'N/A'}</Text>
-
-        <Text style={styles.label}>Workout Routine:</Text>
-        <Text style={styles.value}>{userData?.workoutRoutine || 'N/A'}</Text>
+        {/* Second Horizontal Card */}
+        <View style={styles.horizontalcard2}>
+        <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false} 
+            style={styles.carousel}
+          >
+            {/* Example Images */}
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+          </ScrollView>
+        </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -34,23 +57,65 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     padding: 10,
-    backgroundColor: '#2196F3',
     borderRadius: 5,
   },
-  card: {
-    padding: 15,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 5,
-    elevation: 2,
+  container: {
+    position: 'relative',
+    height: 200,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+  verticalcard: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '25%',
+    height: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
-  value: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 10,
+  horizontalcard1: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: '72%',
+    height: '47%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  carousel: {
+    
+  },
+  carouselImage: {
+    width: 70, // Square image
+    height: 70,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  horizontalcard2: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: '72%',
+    height: '47%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -3,7 +3,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import MedicationTracking from '../../components/MyHealth/MedicationTracking';
 import FitnessTracking from '../../components/MyHealth/FitnessTracking'
 import VitalSignsMonitoring from '../../components/MyHealth/VitalSignsMonitoring'
+import MyHealthProfile from '../../components/MyHealth/MyHealthProfile'
 import MediDataContext from '../../context/MediDataContext';
+import SleepTracker from '../../components/MyHealth/SleepTracker'
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "./../../configs/firebase";
 
@@ -57,9 +59,29 @@ export default function MyHealth() {
 
   return (
     <ScrollView >
-      <MedicationTracking />
-      <FitnessTracking />
-      <VitalSignsMonitoring />
+      <View >
+      <View>
+          <MyHealthProfile/>
+        </View>
+
+        <View>
+          <MedicationTracking />
+        </View>
+
+        <View >
+          <VitalSignsMonitoring />
+        </View>
+        
+        <View >
+          <FitnessTracking />
+        </View>
+
+        <View >
+          <SleepTracker />
+        </View>
+        
+      </View>
     </ScrollView>
   );
-}
+};
+

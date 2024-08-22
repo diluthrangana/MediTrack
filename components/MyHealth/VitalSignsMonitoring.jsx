@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React, { useContext } from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MediDataContext from '../../context/MediDataContext';
 
 export default function VitalSignsMonitoring() {
@@ -7,42 +8,63 @@ export default function VitalSignsMonitoring() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Heart Rate:</Text>
-      <Text style={styles.value}>{userData?.heartRate || 'N/A'} bpm</Text>
+      {/* Heart Rate Card */}
+      <View style={styles.card}>
+        <Icon name="heart-pulse" size={33} color="#C0C0C0" />
+        <Text style={styles.value}>{userData?.heartRate || 'N/A'} bpm</Text>
+      </View>
+      
+      {/* Blood Pressure Card */}
+      <View style={styles.card}>
+        <Icon name="blood-bag" size={33} color="#C0C0C0" />
+        <Text style={styles.value}>
+          {userData?.bloodPressure?.systolic || 'N/A'}/{userData?.bloodPressure?.diastolic || 'N/A'} mmHg
+        </Text>
+      </View>
 
-      <Text style={styles.label}>Blood Pressure:</Text>
-      <Text style={styles.value}>
-        {userData?.bloodPressure?.systolic || 'N/A'}/{userData?.bloodPressure?.diastolic || 'N/A'} mmHg
-      </Text>
+      {/* Blood Sugar Card */}
+      <View style={styles.card}>
+        <Icon name="needle" size={35} color="#C0C0C0" />
+        <Text style={styles.value}>{userData?.bloodSugar || 'N/A'} mg/dL</Text>
+      </View>
 
-      <Text style={styles.label}>Blood Sugar Levels:</Text>
-      <Text style={styles.value}>{userData?.bloodSugar || 'N/A'} mg/dL</Text>
+      {/* Oxygen Saturation Card */}
+      <View style={styles.card}>
+        <Icon name="gas-cylinder" size={35} color="#C0C0C0" />
+        <Text style={styles.value}>{userData?.oxygenSaturation || 'N/A'}%</Text>
+      </View>
 
-      <Text style={styles.label}>Oxygen Saturation (SpO2):</Text>
-      <Text style={styles.value}>{userData?.oxygenSaturation || 'N/A'}%</Text>
-
-      <Text style={styles.label}>Body Temperature:</Text>
-      <Text style={styles.value}>{userData?.bodyTemperature || 'N/A'}°C</Text>
+      {/* Body Temperature Card */}
+      <View style={styles.card}>
+        <Icon name="thermometer" size={35} color="#C0C0C0" />
+        <Text style={styles.value}>{userData?.bodyTemperature || 'N/A'}°C</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 5,
-    elevation: 2,
+    flexDirection: 'row', // Align all cards in a single row
+    justifyContent: 'space-between', // Space out the cards evenly
+    padding: 0,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 10,
+    marginHorizontal: 5, // Adjust margin between cards
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    width: '16%', // Each card occupies a portion of the row
+    alignItems: 'center', // Center content within the card
   },
   value: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 15,
+    fontSize: 12,
+    color: '#333',
+    textAlign: 'center',
+    marginTop: 5, // Add some space between icon and text
   },
 });

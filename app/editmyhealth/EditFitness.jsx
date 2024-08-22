@@ -50,31 +50,10 @@ export default function EditFitness() {
 
   return (
       <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.heading}>Edit Medication Details</Text>
-          
-          <TextInput
-              style={styles.input}
-              placeholder="Medication Name"
-              value={medicationName}
-              onChangeText={setMedicationName}
-          />
-          
-          <TextInput
-              style={styles.input}
-              placeholder="Dosage (e.g., 500mg)"
-              value={dosage}
-              onChangeText={setDosage}
-          />
-          
-          <TextInput
-              style={styles.input}
-              placeholder="Frequency (e.g., twice a day)"
-              value={frequency}
-              onChangeText={setFrequency}
-          />
-          
-          <View style={styles.buttonContainer}>
-              <Button title="Save" onPress={handleSave} />
+          <View>
+          <View></View>
+          <View></View>
+          <View></View>
           </View>
       </ScrollView>
   );
