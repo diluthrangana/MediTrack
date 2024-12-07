@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity, TextInput, AppState } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import BMI from '../MyHealth/BMI'
 import { storage } from '../../configs/firebase';
 import MediDataContext from '../../context/MediDataContext';
 import { auth, db } from "../../configs/firebase"; 
@@ -19,11 +19,14 @@ export default function MyHealthProfile() {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        {userData ? (
-          <Image source={{ uri:'./../../assets/images/profile1.png'  }} style={styles.image} />
+      {userData.PPLink ? (
+          <Image source={{ uri: userData?.PPLink }} style={styles.image} />
         ) : (
           <Image source={require('./../../assets/images/profile1.png')} style={styles.image} />
         )}
+      </View>
+      <View>
+        <BMI/>
       </View>
       
     </View>
@@ -32,8 +35,9 @@ export default function MyHealthProfile() {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection:'row',
     paddingTop: 40,
-    paddingBottom: 20,
+    paddingBottom: 0,
     alignItems: "left",
     backgroundColor: "#f5f5f5",
     paddingLeft:20,

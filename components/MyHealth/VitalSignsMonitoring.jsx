@@ -47,18 +47,20 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row', // Align all cards in a single row
     justifyContent: 'space-between', // Space out the cards evenly
-    padding: 0,
+    paddingLeft: 19,
+    paddingRight: 19,
   },
   card: {
     backgroundColor: '#fff',
     borderRadius: 8,
-    padding: 10,
-    marginHorizontal: 5, // Adjust margin between cards
+    padding: 8,
+    marginHorizontal:2, // Adjust margin between cards
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    width: '16%', // Each card occupies a portion of the row
+    width: '17%', // Each card occupies a portion of the row
     alignItems: 'center', // Center content within the card
   },
   value: {

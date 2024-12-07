@@ -21,7 +21,7 @@ export default function SignIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log('User signed in:', user);
-        router.push('/myhealth');
+        router.push('./../../loading');
       })
       .catch((error) => {
         const errorCode = error.code;

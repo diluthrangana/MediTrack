@@ -10,7 +10,7 @@ export default function MedicationTracking() {
 
   return (
     <TouchableOpacity
-    style={styles.button}
+    style={styles.container}
     onPress={() => router.push('editmyhealth/EditMedication')}
   >   
 
@@ -27,21 +27,24 @@ export default function MedicationTracking() {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
-    paddingTop: 150,
     justifyContent: 'center',
+    marginBottom:15,
     
     
   },
   card: {
+    width:'90%',
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 0,
+    marginHorizontal: 0,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    marginBottom: 20,
+    alignItems: 'center',
   
   },
   label: {
@@ -51,13 +54,8 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 16,
-    marginBottom: 15,
+    marginBottom: 10,
     color: '#333',
-  },
-  button: {
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',

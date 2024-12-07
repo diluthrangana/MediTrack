@@ -41,11 +41,11 @@ export default function FitnessTracking() {
             style={styles.carousel}
           >
             {/* Example Images */}
-            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.carouselImage} />
+            <Image source={require('./../../assets/images/WorkOut/lunge.jpg')} style={styles.carouselImage} />
+            <Image source={require('./../../assets/images/WorkOut/bridge.jpg')} style={styles.carouselImage} />
+            <Image source={require('./../../assets/images/WorkOut/plank.jpg')} style={styles.carouselImage} />
+            <Image source={require('./../../assets/images/WorkOut/jumping jack.jpg')} style={styles.carouselImage} />
+            <Image source={require('./../../assets/images/WorkOut/lunge.jpg')} style={styles.carouselImage} />
           </ScrollView>
         </View>
       </View>
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
