@@ -10,7 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import MediDataContext from "../../context/MediDataContext";
 import WorkoutData from "../../data/WorkoutPlans";
-import DietData from "../../data/DietPlans"; // Import diet data
+import DietData from "../../data/DietPlans";
 
 export default function FitnessTracking() {
   const router = useRouter();
@@ -20,6 +20,10 @@ export default function FitnessTracking() {
   const [bmiCategoryDiet, setBMICategoryDiet] = useState([]);
   const [currentDayWorkout, setCurrentDayWorkout] = useState([]);
   const [currentDayDiet, setCurrentDayDiet] = useState([]);
+
+  const [waterIntake, setWaterIntake] = useState(2.5); // Example water intake
+  const [calorieIntake, setCalorieIntake] = useState(2000); // Example calorie intake
+  const [calorieBurn, setCalorieBurn] = useState(500); // Example calorie burn
 
   useEffect(() => {
     // Calculate BMI and determine workout & diet category
@@ -50,7 +54,7 @@ export default function FitnessTracking() {
 
   useEffect(() => {
     const getCurrentDayWorkout = () => {
-      const today = new Date().getDay(); 
+      const today = new Date().getDay();
       setCurrentDayWorkout(bmiCategoryWorkout[today]?.workouts || []);
     };
 
@@ -62,16 +66,19 @@ export default function FitnessTracking() {
       const today = new Date().getDay();
       setCurrentDayDiet(bmiCategoryDiet[today] || []); // Directly use today's data
     };
-  
+
     getCurrentDayDiet();
   }, [bmiCategoryDiet]);
-  
 
   return (
     <View style={styles.button}>
       <View style={styles.container}>
         {/* Vertical Card */}
-        <View style={styles.verticalcard}></View>
+        <View style={styles.verticalcard}>
+          <Text style={styles.infoText}>Water Intake: {waterIntake} L</Text>
+          <Text style={styles.infoText}>Calorie Intake: {calorieIntake} kcal</Text>
+          <Text style={styles.infoText}>Calorie Burn: {calorieBurn} kcal</Text>
+        </View>
 
         {/* First Horizontal Card (Diet Plan) */}
         <View style={styles.horizontalcard1}>
@@ -83,8 +90,6 @@ export default function FitnessTracking() {
             {currentDayDiet?.map((item, index) => (
               <View key={index} style={styles.dietContainer}>
                 <Image source={item.image} style={styles.image} />
-                {/* <Text style={styles.dietText}>{item.meal}</Text>
-                <Text style={styles.dietDetails}>{item.calories} cal</Text> */}
               </View>
             ))}
           </ScrollView>
@@ -116,37 +121,38 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   container: {
-    position: 'relative',
+    position: "relative",
     height: 250,
   },
   verticalcard: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '25%',
-    height: '100%',
-    backgroundColor: '#fff',
+    width: "25%",
+    height: "100%",
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
     elevation: 2,
+    justifyContent: "space-between",
   },
   horizontalcard1: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
-    width: '72%',
-    height: '47%',
-    backgroundColor: '#fff',
+    width: "72%",
+    height: "47%",
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
   },
   horizontalcard2: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
-    width: '72%',
-    height: '47%',
-    backgroundColor: '#fff',
+    width: "72%",
+    height: "47%",
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
   },
@@ -158,20 +164,16 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dietContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginRight: 10,
   },
-  dietText: {
-    marginTop: 5,
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  dietDetails: {
-    fontSize: 10,
-    color: 'gray',
-  },
   workoutContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  infoText: {
+    fontSize: 12,
+    color: "#333",
+    marginVertical: 4,
+  },
 });
