@@ -10,15 +10,19 @@ import {
 import { useRouter } from "expo-router";
 import MediDataContext from "../../context/MediDataContext";
 import WorkoutData from "../../data/WorkoutPlans";
+import DietData from "../../data/DietPlans"; // Import diet data
 
 export default function FitnessTracking() {
   const router = useRouter();
   const { userData } = useContext(MediDataContext);
-  const [bmiCategory, setBMICategory] = useState([]);
+
+  const [bmiCategoryWorkout, setBMICategoryWorkout] = useState([]);
+  const [bmiCategoryDiet, setBMICategoryDiet] = useState([]);
   const [currentDayWorkout, setCurrentDayWorkout] = useState([]);
+  const [currentDayDiet, setCurrentDayDiet] = useState([]);
 
   useEffect(() => {
-    // Calculate BMI and determine category
+    // Calculate BMI and determine workout & diet category
     const calculateBMI = (weight, height) => {
       const heightInMeters = height / 100; // Convert cm to meters
       return (weight / (heightInMeters * heightInMeters)).toFixed(2);
@@ -27,27 +31,41 @@ export default function FitnessTracking() {
     if (userData?.weight && userData?.height) {
       const bmi = calculateBMI(userData.weight, userData.height);
 
-      // Determine BMI category
-      if (bmi < 18.5) setBMICategory(WorkoutData["Underweight"]);
-      else if (bmi >= 18.5 && bmi < 24.9)
-        setBMICategory(WorkoutData["Healthy Weight"]);
-      else if (bmi >= 25 && bmi < 29.9)
-        setBMICategory(WorkoutData["Overweight"]);
-      else if (bmi >= 30) setBMICategory(WorkoutData["Obese"]);
+      // Determine Workout BMI Category
+      if (bmi < 18.5) {
+        setBMICategoryWorkout(WorkoutData["Underweight"]);
+        setBMICategoryDiet(DietData["Underweight"]);
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        setBMICategoryWorkout(WorkoutData["Healthy Weight"]);
+        setBMICategoryDiet(DietData["Healthy Weight"]);
+      } else if (bmi >= 25 && bmi < 29.9) {
+        setBMICategoryWorkout(WorkoutData["Overweight"]);
+        setBMICategoryDiet(DietData["Overweight"]);
+      } else if (bmi >= 30) {
+        setBMICategoryWorkout(WorkoutData["Obese"]);
+        setBMICategoryDiet(DietData["Obese"]);
+      }
     }
   }, [userData]);
 
   useEffect(() => {
-    // Determine current day's workout plan dynamically
     const getCurrentDayWorkout = () => {
-      const today = new Date().getDay(); // Get the current day of the week
-      console.log("Today's index:", today);
-      console.log("Today's workouts from BMI Category:", bmiCategory[today]);
-      setCurrentDayWorkout(bmiCategory[today]?.workouts || []);
+      const today = new Date().getDay(); 
+      setCurrentDayWorkout(bmiCategoryWorkout[today]?.workouts || []);
     };
 
     getCurrentDayWorkout();
-  }, [bmiCategory]);
+  }, [bmiCategoryWorkout]);
+
+  useEffect(() => {
+    const getCurrentDayDiet = () => {
+      const today = new Date().getDay();
+      setCurrentDayDiet(bmiCategoryDiet[today] || []); // Directly use today's data
+    };
+  
+    getCurrentDayDiet();
+  }, [bmiCategoryDiet]);
+  
 
   return (
     <View style={styles.button}>
@@ -55,29 +73,24 @@ export default function FitnessTracking() {
         {/* Vertical Card */}
         <View style={styles.verticalcard}></View>
 
-        {/* First Horizontal Card */}
+        {/* First Horizontal Card (Diet Plan) */}
         <View style={styles.horizontalcard1}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.carousel}
           >
-            <Image
-              source={{ uri: "https://via.placeholder.com/100" }}
-              style={styles.carouselImage}
-            />
-            <Image
-              source={{ uri: "https://via.placeholder.com/100" }}
-              style={styles.carouselImage}
-            />
-            <Image
-              source={{ uri: "https://via.placeholder.com/100" }}
-              style={styles.carouselImage}
-            />
+            {currentDayDiet?.map((item, index) => (
+              <View key={index} style={styles.dietContainer}>
+                <Image source={item.image} style={styles.image} />
+                {/* <Text style={styles.dietText}>{item.meal}</Text>
+                <Text style={styles.dietDetails}>{item.calories} cal</Text> */}
+              </View>
+            ))}
           </ScrollView>
         </View>
 
-        {/* Second Horizontal Card - Dynamically Updated with Today's Workout */}
+        {/* Second Horizontal Card (Workout Plan) */}
         <View style={styles.horizontalcard2}>
           <ScrollView
             horizontal
@@ -86,16 +99,7 @@ export default function FitnessTracking() {
           >
             {currentDayWorkout?.map((item, index) => (
               <View key={index} style={styles.workoutContainer}>
-                <Image
-                  source={item.image} // Fallback to placeholder
-                  style={styles.image}
-                />
-                {/* <Text style={styles.workoutText}>{item.exercise}</Text>
-                <Text style={styles.workoutDetails}>
-                  {item.sets
-                    ? `${item.sets} sets x ${item.reps || ""} reps`
-                    : ""}
-                </Text> */}
+                <Image source={item.image} style={styles.image} />
               </View>
             ))}
           </ScrollView>
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
   },
   container: {
     position: 'relative',
-    height: 200,
+    height: 250,
   },
   verticalcard: {
     position: 'absolute',
@@ -125,10 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
   },
   horizontalcard1: {
     position: 'absolute',
@@ -139,20 +139,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  carousel: {},
-  carouselImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
-    marginRight: 10,
   },
   horizontalcard2: {
     position: 'absolute',
@@ -163,20 +149,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
+  carousel: {},
   image: {
     width: 70,
     height: 70,
     borderRadius: 10,
     marginRight: 10,
+  },
+  dietContainer: {
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  dietText: {
+    marginTop: 5,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  dietDetails: {
+    fontSize: 10,
+    color: 'gray',
+  },
+  workoutContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
- 
-
