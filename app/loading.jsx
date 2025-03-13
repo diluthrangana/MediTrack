@@ -9,7 +9,7 @@ import { useNavigation, useRouter } from 'expo-router';
 
 export default function Loading() {
   const { userData, setUserData } = useContext(MediDataContext);
-  const [loading, setLoading] = useState(true); // To track loading state
+  const [loading, setLoading] = useState(true); 
   const user = auth.currentUser;
   const router = useRouter();
   
@@ -29,7 +29,7 @@ export default function Loading() {
         } catch (error) {
           console.error("Error loading user data:", error);
         } finally {
-          setLoading(false); // Set loading to false after data is fetched
+          setLoading(false); 
         }
       }
     };
@@ -43,7 +43,6 @@ export default function Loading() {
     }
   }, [loading, userData]);
 
-  // Show an activity indicator while loading
   if (loading) {
     return (
       <View style={styles.container}>
