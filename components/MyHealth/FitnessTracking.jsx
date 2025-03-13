@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 import MediDataContext from "../../context/MediDataContext";
 import WorkoutData from "../../data/WorkoutPlans";
 import DietData from "../../data/DietPlans";
+import { Ionicons } from "@expo/vector-icons"; // Make sure you import this
 
 export default function FitnessTracking() {
   const router = useRouter();
@@ -20,6 +21,8 @@ export default function FitnessTracking() {
   const [bmiCategoryDiet, setBMICategoryDiet] = useState([]);
   const [currentDayWorkout, setCurrentDayWorkout] = useState([]);
   const [currentDayDiet, setCurrentDayDiet] = useState([]);
+  // Track completed workouts
+  const [completedWorkouts, setCompletedWorkouts] = useState({});
 
   const [waterIntake, setWaterIntake] = useState(2.5); // Example water intake
   const [calorieIntake, setCalorieIntake] = useState(2000); // Example calorie intake
@@ -70,6 +73,14 @@ export default function FitnessTracking() {
     getCurrentDayDiet();
   }, [bmiCategoryDiet]);
 
+  // Toggle workout completion
+  const toggleWorkoutCompletion = (index) => {
+    setCompletedWorkouts(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
   return (
     <View style={styles.button}>
       <View style={styles.container}>
@@ -104,6 +115,16 @@ export default function FitnessTracking() {
           >
             {currentDayWorkout?.map((item, index) => (
               <View key={index} style={styles.workoutContainer}>
+                <TouchableOpacity
+                  style={styles.checkboxContainer}
+                  onPress={() => toggleWorkoutCompletion(index)}
+                >
+                  {completedWorkouts[index] ? (
+                    <Ionicons name="checkmark-circle" size={24} color="#4CAF50" />
+                  ) : (
+                    <Ionicons name="ellipse-outline" size={24} color="#757575" />
+                  )}
+                </TouchableOpacity>
                 <Image source={item.image} style={styles.image} />
               </View>
             ))}
@@ -170,6 +191,16 @@ const styles = StyleSheet.create({
   workoutContainer: {
     justifyContent: "center",
     alignItems: "center",
+    marginRight: 10,
+    position: "relative",
+  },
+  checkboxContainer: {
+    position: "absolute",
+    top: -2,
+    left: -2,
+    zIndex: 1,
+    backgroundColor: "#fff",
+    borderRadius: 12,
   },
   infoText: {
     fontSize: 12,

@@ -13,10 +13,11 @@ export default function _layout() {
           borderTopWidth: 0,
           elevation: 5,
           height: 60,
-          paddingVertical: 5,
+          paddingVertical: 0,
+          paddingBottom:5,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: '600',
         },
         tabBarActiveTintColor: '#007AFF',
